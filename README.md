@@ -29,9 +29,9 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 
 1. Clone the repository:
 
-    ```bash
+```bash
   gh repo clone Abhijit-cmd/3D-abhijit-portfolio
-    ```
+ ```
 
 2. Navigate to the project directory:
 
