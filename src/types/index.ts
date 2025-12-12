@@ -4,3 +4,6 @@ export interface Link {
   thumbnail: string;
   target?: string;
 }
+
+// Re-export video types
+export * from './video';
