@@ -22,7 +22,11 @@ const links: Link[] = [
     thumbnail: '/assets/nav-link-previews/projects.png'
   },
   {
+<<<<<<< HEAD
     title: 'COPEZONE',
+=======
+    title: 'Gaming Videos',
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     href: '/gaming-videos',
     thumbnail: '/assets/nav-link-previews/projects.png'
   },

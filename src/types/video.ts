@@ -11,7 +11,11 @@ export interface VideoMetadata {
   uploadDate: Date;
   lastModified: Date;
   tags: string[];
+<<<<<<< HEAD
   category: 'gameplay' | 'funny_moments';
+=======
+  category: 'gameplay' | 'tutorial' | 'review' | 'stream';
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
   isPublic: boolean;
   viewCount: number;
 }
@@ -39,7 +43,10 @@ export interface VideoUpdateRequest {
   category?: VideoMetadata['category'];
   tags?: string[];
   isPublic?: boolean;
+<<<<<<< HEAD
   thumbnail?: string;
+=======
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 }
 
 export interface VideoSearchFilters {

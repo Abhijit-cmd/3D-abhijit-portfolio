@@ -1,9 +1,28 @@
+<<<<<<< HEAD
 'use client';
 
+=======
+import { Metadata } from "next";
+import { config } from "@/data/config";
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { VideoUpload } from "@/components/video/video-upload";
 
+<<<<<<< HEAD
+=======
+export const metadata: Metadata = {
+  title: `Upload Gaming Video | ${config.author}`,
+  description: "Upload your gaming videos and content",
+  openGraph: {
+    title: `Upload Gaming Video | ${config.author}`,
+    description: "Upload your gaming videos and content",
+    url: `${config.site}/gaming-videos/upload`,
+    type: "website",
+  },
+};
+
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 export default function UploadPage() {
   return (
     <main className="min-h-screen bg-background">
@@ -12,7 +31,11 @@ export default function UploadPage() {
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+<<<<<<< HEAD
               Upload to COPEZONE
+=======
+              Upload Gaming Video
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Share your gaming content with the world. Upload your gameplay videos, tutorials, and more.
@@ -36,7 +59,11 @@ export default function UploadPage() {
                     d="M15 19l-7-7 7-7"
                   />
                 </svg>
+<<<<<<< HEAD
                 Back to COPEZONE
+=======
+                Back to Gaming Videos
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
               </Button>
             </Link>
           </div>

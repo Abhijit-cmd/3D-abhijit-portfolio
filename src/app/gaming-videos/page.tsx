@@ -4,7 +4,11 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { config } from "@/data/config";
 import { VideoGrid } from '@/components/video/video-grid';
 import { VideoMetadata, VideoSearchFilters, PaginatedVideoResponse } from '@/types/video';
+<<<<<<< HEAD
 import { VideoClientService } from '@/lib/services/video-client-service';
+=======
+import { VideoService } from '@/lib/services/video-service';
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -35,7 +39,11 @@ export default function GamingVideosPage() {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'most-viewed' | 'title'>('newest');
   const [viewMode, setViewMode] = useState<'infinite' | 'pagination'>('infinite');
 
+<<<<<<< HEAD
   const videoService = useMemo(() => new VideoClientService(), []);
+=======
+  const videoService = useMemo(() => new VideoService(), []);
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
   // Load available tags for filtering
   const loadAvailableTags = useCallback(async () => {
@@ -172,6 +180,7 @@ export default function GamingVideosPage() {
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+<<<<<<< HEAD
               COPEZONE
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -196,6 +205,13 @@ export default function GamingVideosPage() {
                 </a>
               </Button>
             </div>
+=======
+              Gaming Videos
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore my gaming content, gameplay videos, and interactive experiences.
+            </p>
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
           </div>
 
           {/* Search and Filter Controls */}
@@ -229,8 +245,19 @@ export default function GamingVideosPage() {
                     <DropdownMenuItem onClick={() => setSelectedCategory('gameplay')}>
                       Gameplay
                     </DropdownMenuItem>
+<<<<<<< HEAD
                     <DropdownMenuItem onClick={() => setSelectedCategory('funny_moments')}>
                       Funny Moments
+=======
+                    <DropdownMenuItem onClick={() => setSelectedCategory('tutorial')}>
+                      Tutorial
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSelectedCategory('review')}>
+                      Review
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSelectedCategory('stream')}>
+                      Stream
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -337,7 +364,11 @@ export default function GamingVideosPage() {
           {/* Admin Links */}
           <div className="text-center pt-8 border-t border-border">
             <p className="text-muted-foreground mb-4">
+<<<<<<< HEAD
               Because even noobs need a video library
+=======
+              Manage your gaming video library
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild variant="outline">

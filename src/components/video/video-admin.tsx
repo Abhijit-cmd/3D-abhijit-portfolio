@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { VideoMetadata, VideoSearchFilters, VideoUpdateRequest } from '@/types/video';
+<<<<<<< HEAD
 import { VideoClientService } from '@/lib/services/video-client-service';
+=======
+import { VideoService } from '@/lib/services/video-service';
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,7 +33,11 @@ export function VideoAdmin() {
   const [deletingVideo, setDeletingVideo] = useState<VideoMetadata | null>(null);
   const [stats, setStats] = useState<any>(null);
 
+<<<<<<< HEAD
   const videoService = new VideoClientService();
+=======
+  const videoService = new VideoService();
+>>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
   const loadVideos = async () => {
     try {
