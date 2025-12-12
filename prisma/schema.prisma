@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Video {
+  id           String        @id @default(cuid())
+  title        String
+  description  String?
+  filename     String        @unique
+  originalName String
+  mimeType     String
+  size         BigInt
+  duration     Int?
+  thumbnail    String?
+  uploadDate   DateTime      @default(now())
+  lastModified DateTime      @updatedAt
+  tags         String[]
+  category     VideoCategory
+  isPublic     Boolean       @default(true)
+  viewCount    Int           @default(0)
+
+  @@index([category])
+  @@index([uploadDate])
+  @@index([isPublic])
+  @@map("videos")
+}
+
+enum VideoCategory {
+  gameplay
+  funny_moments
+}

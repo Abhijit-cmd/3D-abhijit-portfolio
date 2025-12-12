@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Video Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #2a2a2a;
+            color: #fff;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #0f5132;
+            border: 1px solid #0a3622;
+        }
+        .error {
+            background: #842029;
+            border: 1px solid #58151c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Video Upload</h1>
+    <form id="uploadForm">
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" id="title" required value="Test Video">
+        </div>
+        
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea id="description" rows="3">This is a test video upload</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Category:</label>
+            <select id="category">
+                <option value="gameplay">Gameplay</option>
+                <option value="tutorial">Tutorial</option>
+                <option value="review">Review</option>
+                <option value="stream">Stream</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Tags (comma separated):</label>
+            <input type="text" id="tags" value="test, demo">
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="isPublic" checked> Public
+            </label>
+        </div>
+        
+        <div class="form-group">
+            <label>Video File:</label>
+            <input type="file" id="videoFile" accept="video/*" required>
+        </div>
+        
+        <button type="submit">Upload Video</button>
+    </form>
+    
+    <div id="status"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Uploading...';
+            statusDiv.className = '';
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('tags', document.getElementById('tags').value);
+            formData.append('isPublic', document.getElementById('isPublic').checked);
+            formData.append('video', document.getElementById('videoFile').files[0]);
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/videos/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.textContent = 'Success! Video uploaded: ' + result.video.title;
+                    statusDiv.className = 'success';
+                    console.log('Uploaded video:', result);
+                } else {
+                    statusDiv.textContent = 'Error: ' + (result.error || 'Upload failed');
+                    statusDiv.className = 'error';
+                }
+            } catch (error) {
+                statusDiv.textContent = 'Error: ' + error.message;
+                statusDiv.className = 'error';
+                console.error('Upload error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
