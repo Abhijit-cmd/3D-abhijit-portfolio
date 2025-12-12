@@ -2,21 +2,23 @@
 
 Welcome to the repository for my personal portfolio website! This is where I showcase my skills, projects, and a bit of my personality through jaw-dropping 3D animations, slick interactions, and fluid motion. If you're into creative web design, you're in the right place.
 
-![Portfolio Preview](https://github.com/Naresh-Khatri/Portfolio/blob/main/public/assets/projects-screenshots/portfolio/landing.png?raw=true)
+![Portfolio Preview](public/assets/nav-link-previews/landing.png)
 
 ## 🔥 Features
 
 - **3D Animations**: Custom-made interactive keyboard using Spline with skills as keycaps that reveal titles and descriptions on hover.
 - **Slick Interactions**: Powered by GSAP and Framer Motion for smooth animations on scroll, hover, and element reveal.
 - **Space Theme**: Particles on a dark background to simulate a cosmic environment, making the experience out of this world.
+- **COPEZONE**: A video gallery section for gaming clips with categories (Gameplay, Funny Moments), custom thumbnails, and PostgreSQL database.
 - **Responsive Design**: Fully responsive across all devices to ensure the best user experience.
 - **Innovative Web Design**: Combining creativity with functionality to push the boundaries of modern web design.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js, React, Tailwind CSS, Shadcn, Aceternity UI
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS, Shadcn UI, Aceternity UI
+- **Database**: PostgreSQL with Prisma ORM
 - **Animations**: GSAP, Framer Motion, Spline Runtime
-- **Misc**: Resend, Socketio, Zod
+- **Misc**: Resend, Socket.io, Zod
 
 ## 🚀 Getting Started
 
@@ -30,7 +32,7 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/Naresh-Khatri/Portfolio.git
+    gh repo clone Abhijit-cmd/3D-abhijit-portfolio
     ```
 
 2. Navigate to the project directory:
@@ -47,7 +49,22 @@ Welcome to the repository for my personal portfolio website! This is where I sho
     yarn install
     ```
 
-4. Run the development server:
+4. Set up environment variables:
+
+    Create a `.env` file in the root directory and add:
+
+    ```env
+    DATABASE_URL="your_postgresql_connection_string"
+    ```
+
+5. Set up the database:
+
+    ```bash
+    npx prisma generate
+    npx prisma migrate deploy
+    ```
+
+6. Run the development server:
 
     ```bash
     npm run dev
@@ -55,7 +72,7 @@ Welcome to the repository for my personal portfolio website! This is where I sho
     yarn dev
     ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the magic!
+7. Open [http://localhost:3000](http://localhost:3000) in your browser to see the magic!
 
 ## 🚀 Deployment
 
