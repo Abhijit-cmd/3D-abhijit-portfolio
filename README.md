@@ -9,25 +9,20 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 - **3D Animations**: Custom-made interactive keyboard using Spline with skills as keycaps that reveal titles and descriptions on hover.
 - **Slick Interactions**: Powered by GSAP and Framer Motion for smooth animations on scroll, hover, and element reveal.
 - **Space Theme**: Particles on a dark background to simulate a cosmic environment, making the experience out of this world.
-<<<<<<< HEAD
 - **COPEZONE**: A video gallery section for gaming clips with categories (Gameplay, Funny Moments), custom thumbnails, and PostgreSQL database.
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 - **Responsive Design**: Fully responsive across all devices to ensure the best user experience.
 - **Innovative Web Design**: Combining creativity with functionality to push the boundaries of modern web design.
 
 ## 🛠️ Tech Stack
 
-<<<<<<< HEAD
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS, Shadcn UI, Aceternity UI
 - **Database**: PostgreSQL with Prisma ORM
 - **Animations**: GSAP, Framer Motion, Spline Runtime
 - **Misc**: Resend, Socket.io, Zod
-=======
 - **Frontend**: Next.js, React, Tailwind CSS, Shadcn, Aceternity UI
 - **Animations**: GSAP, Framer Motion, Spline Runtime
 - **Misc**: Resend, Socketio, Zod
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
+
 
 ## 🚀 Getting Started
 
@@ -41,11 +36,7 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 1. Clone the repository:
 
     ```bash
-<<<<<<< HEAD
-    gh repo clone Abhijit-cmd/3D-abhijit-portfolio
-=======
-   https://github.com/Abhijit-cmd/3D-abhijit-portfolio.git
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
+     gh repo clone Abhijit-cmd/3D-abhijit-portfolio
     ```
 
 2. Navigate to the project directory:
@@ -89,11 +80,8 @@ Welcome to the repository for my personal portfolio website! This is where I sho
     yarn dev
     ```
 
-<<<<<<< HEAD
 7. Open [http://localhost:3000](http://localhost:3000) in your browser to see the magic!
-=======
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the magic!
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
+
 
 ## 🚀 Deployment
 
