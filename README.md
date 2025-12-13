@@ -52,8 +52,6 @@ Welcome to the repository for my personal portfolio website! This is where I sho
     # or
     yarn install
     ```
-
-<<<<<<< HEAD
 4. Set up environment variables:
 
     Create a `.env` file in the root directory and add:
