@@ -284,7 +284,17 @@ const projects: Project[] = [
     category: "Mobile Application",
     title: "Campus Explorer",
     src: "/assets/projects-screenshots/CampusExplorer/Thumbnail.png",
-    screenshots: ["landing_page.png", "login_page.png", "home_page.png", "map_interface.png", "select_location.png", "quick_finds.png", "profile_creation.png", "profile_section.png", "settings_page.png"],
+    screenshots: [
+      "CampusExplorer/landing_page.png",
+      "CampusExplorer/login_page.png",
+      "CampusExplorer/home_page.png",
+      "CampusExplorer/map_interface.png",
+      "CampusExplorer/select_location.png",
+      "CampusExplorer/quick_finds.png",
+      "CampusExplorer/profile_creation.png",
+      "CampusExplorer/profile_section.png",
+      "CampusExplorer/settings_page.png"
+    ],
     skills: {
       frontend: [
         PROJECT_SKILLS.flutter,
@@ -345,7 +355,14 @@ const projects: Project[] = [
     category: "AI/ML Application",
     title: "Sign Language Translator",
     src: "/assets/projects-screenshots/Signlanguage translator/landing.jpeg",
-    screenshots: ["landing.jpeg", "about.jpeg", "howtouse.jpeg", "languageselection.jpeg", "model.jpeg", "working.jpeg"],
+    screenshots: [
+      "Signlanguage translator/landing.jpeg",
+      "Signlanguage translator/about.jpeg",
+      "Signlanguage translator/howtouse.jpeg",
+      "Signlanguage translator/languageselection.jpeg",
+      "Signlanguage translator/model.jpeg",
+      "Signlanguage translator/working.jpeg"
+    ],
     live: "#",
     github: "https://github.com/Abhijit-cmd/Sign-Language-Translator",
     skills: {
@@ -405,7 +422,11 @@ const projects: Project[] = [
     category: "Weather Application",
     title: "Weatherly",
     src: "/assets/projects-screenshots/Weatherly/Design.png",
-    screenshots: ["Design.png", "landing page in dark bg.png", "landing page in light bg.png"],
+    screenshots: [
+      "Weatherly/Design.png",
+      "Weatherly/landing page in dark bg.png",
+      "Weatherly/landing page in light bg.png"
+    ],
     live: "#",
     github: "#",
     skills: {
@@ -473,7 +494,7 @@ const projects: Project[] = [
     category: "Portfolio",
     title: "My Portfolio",
     src: "/assets/projects-screenshots/portfolio/landing.png",
-    screenshots: ["1.png"],
+    screenshots: ["portfolio/1.png"],
     live: "#",
     github:"#",
     skills: {
@@ -539,7 +560,12 @@ const projects: Project[] = [
     category: "Anonymous chat",
     title: "GhostChat",
     src: "/assets/projects-screenshots/ghostchat/1.png",
-    screenshots: ["1.png", "2.png", "3.png", "4.png"],
+    screenshots: [
+      "ghostchat/1.png",
+      "ghostchat/2.png",
+      "ghostchat/3.png",
+      "ghostchat/4.png"
+    ],
     live: "#",
     github:"#",
     skills: {
@@ -575,7 +601,11 @@ const projects: Project[] = [
     category: "AI Voice Assistant",
     title: "Demo AI",
     src: "/assets/projects-screenshots/Demoaibot/Thumbnail.png",
-    screenshots: ["Thumbnail.png", "logo.png", "vsign-150w.png"],
+    screenshots: [
+      "Demoaibot/Thumbnail.png",
+      "Demoaibot/logo.png",
+      "Demoaibot/vsign-150w.png"
+    ],
     live: "#",
     github: "#",
     skills: {
