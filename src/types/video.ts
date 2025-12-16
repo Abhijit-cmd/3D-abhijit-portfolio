@@ -11,7 +11,7 @@ export interface VideoMetadata {
   uploadDate: Date;
   lastModified: Date;
   tags: string[];
-  category: 'gameplay' | 'funny_moments';
+  category: 'gameplay' | 'funny_moments' | 'tutorial' | 'review' | 'stream';
   isPublic: boolean;
   viewCount: number;
 }
