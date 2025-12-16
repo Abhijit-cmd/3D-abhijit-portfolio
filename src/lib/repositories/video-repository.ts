@@ -165,13 +165,16 @@ export class VideoRepository {
         _count: {
           category: true,
         },
+        orderBy: {
+          category: 'asc',
+        },
       }),
       prisma.video.count({ where: { isPublic: true } }),
       prisma.video.count({ where: { isPublic: false } }),
     ]);
 
     const categoryCounts: Record<string, number> = {};
-    categoryGroups.forEach((group: { category: string; _count: { category: number } }) => {
+    categoryGroups.forEach((group) => {
       categoryCounts[group.category] = group._count.category;
     });
 
