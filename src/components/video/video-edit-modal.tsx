@@ -261,9 +261,9 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
             <Label>Tags</Label>
             <div className="space-y-3">
               {/* Existing Tags */}
-              {formData.tags.length > 0 && (
+              {(formData.tags?.length || 0) > 0 && (
                 <div className="flex flex-wrap gap-2">
-                  {formData.tags.map((tag, index) => (
+                  {formData.tags?.map((tag, index) => (
                     <Badge key={index} variant="outline" className="gap-1">
                       #{tag}
                       <button
@@ -293,7 +293,7 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
                   type="button"
                   variant="outline"
                   onClick={handleAddTag}
-                  disabled={!newTag.trim() || formData.tags.includes(newTag.trim())}
+                  disabled={!newTag.trim() || formData.tags?.includes(newTag.trim())}
                 >
                   Add
                 </Button>
