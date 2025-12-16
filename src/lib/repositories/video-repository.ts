@@ -163,7 +163,7 @@ export class VideoRepository {
       prisma.video.groupBy({
         by: ['category'],
         _count: {
-          category: true,
+          _all: true,
         },
         orderBy: {
           category: 'asc',
@@ -175,7 +175,9 @@ export class VideoRepository {
 
     const categoryCounts: Record<string, number> = {};
     categoryGroups.forEach((group) => {
-      categoryCounts[group.category] = group._count.category;
+      if (group._count && typeof group._count === 'object' && '_all' in group._count && typeof group._count._all === 'number') {
+        categoryCounts[group.category] = group._count._all!;
+      }
     });
 
     return {
