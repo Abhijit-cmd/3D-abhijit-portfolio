@@ -143,4 +143,23 @@ export class VideoClientService {
       throw new Error('Failed to increment view count');
     }
   }
+
+  /**
+   * Get video statistics
+   */
+  async getVideoStats(): Promise<{
+    totalVideos: number;
+    totalViews: number;
+    categoryCounts: Record<string, number>;
+    publicVideos: number;
+    privateVideos: number;
+  }> {
+    const response = await fetch(`${this.baseUrl}/stats`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch video stats');
+    }
+    
+    return response.json();
+  }
 }
