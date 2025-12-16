@@ -83,10 +83,10 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
 
   const handleAddTag = () => {
     const tag = newTag.trim();
-    if (tag && !formData.tags.includes(tag)) {
+    if (tag && !formData.tags?.includes(tag)) {
       setFormData(prev => ({
         ...prev,
-        tags: [...prev.tags, tag]
+        tags: [...(prev.tags || []), tag]
       }));
       setNewTag('');
     }
