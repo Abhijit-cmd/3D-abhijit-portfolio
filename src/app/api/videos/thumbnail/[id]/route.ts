@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { VideoService } from '@/lib/services/video-service';
-import { FileStorageService } from '@/lib/storage/file-storage';
-import fs from 'fs/promises';
 
 export async function GET(
   request: NextRequest,
@@ -10,30 +8,11 @@ export async function GET(
   try {
     const videoId = params.id;
     const videoService = new VideoService();
-    const fileStorage = new FileStorageService();
 
     // Get video metadata
     const video = await videoService.getVideoById(videoId);
     if (!video) {
       return new NextResponse('Video not found', { status: 404 });
-    }
-
-    // Try to get existing thumbnail
-    if (video.thumbnail) {
-      try {
-        const thumbnailPath = fileStorage.getThumbnailFilePath(video.thumbnail);
-        const buffer = await fs.readFile(thumbnailPath);
-        
-        return new NextResponse(buffer, {
-          status: 200,
-          headers: {
-            'Content-Type': 'image/jpeg',
-            'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
-          },
-        });
-      } catch (error) {
-        console.error('Error reading thumbnail file:', error);
-      }
     }
 
     // Generate a placeholder thumbnail if no thumbnail exists
