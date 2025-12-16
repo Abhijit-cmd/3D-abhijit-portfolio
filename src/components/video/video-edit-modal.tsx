@@ -95,7 +95,7 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
   const handleRemoveTag = (tagToRemove: string) => {
     setFormData(prev => ({
       ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
+      tags: (prev.tags || []).filter(tag => tag !== tagToRemove)
     }));
   };
 
