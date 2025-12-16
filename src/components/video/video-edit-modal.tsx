@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { VideoMetadata, VideoUpdateRequest } from '@/types/video';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,12 +40,9 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
   const [newTag, setNewTag] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-<<<<<<< HEAD
   const [selectedThumbnail, setSelectedThumbnail] = useState<File | null>(null);
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const thumbnailInputRef = React.useRef<HTMLInputElement>(null);
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +55,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
     try {
       setIsLoading(true);
       setError(null);
-<<<<<<< HEAD
       
       // If thumbnail is selected, upload it separately first
       if (selectedThumbnail) {
@@ -76,8 +72,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
       }
       
       // Then update the video metadata
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
       await onSave(video.id, formData);
     } catch (err) {
       console.error('Failed to update video:', err);
@@ -112,7 +106,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
     }
   };
 
-<<<<<<< HEAD
   const handleThumbnailSelect = (file: File) => {
     // Validate image format
     const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
@@ -145,8 +138,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
     }
   };
 
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
   return (
     <Dialog open={true} onOpenChange={() => onCancel()}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
@@ -179,7 +170,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
             />
           </div>
 
-<<<<<<< HEAD
           {/* Thumbnail Upload */}
           <div className="space-y-2">
             <Label>Thumbnail</Label>
@@ -246,8 +236,6 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
             />
           </div>
 
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
           {/* Category */}
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
@@ -263,13 +251,7 @@ export function VideoEditModal({ video, onSave, onCancel }: VideoEditModalProps)
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="gameplay">Gameplay</SelectItem>
-<<<<<<< HEAD
                 <SelectItem value="funny_moments">Funny Moments</SelectItem>
-=======
-                <SelectItem value="tutorial">Tutorial</SelectItem>
-                <SelectItem value="review">Review</SelectItem>
-                <SelectItem value="stream">Stream</SelectItem>
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
               </SelectContent>
             </Select>
           </div>

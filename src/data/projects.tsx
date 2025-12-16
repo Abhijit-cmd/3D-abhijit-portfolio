@@ -1,11 +1,10 @@
+import React, { ReactNode } from "react";
 import AceTernityLogo from "@/components/logos/aceternity";
 import SlideShow from "@/components/slide-show";
 import { Button } from "@/components/ui/button";
 import { TypographyH3, TypographyP } from "@/components/ui/typography";
-import { ArrowUpRight, ExternalLink, Link2, MoveUpRight } from "lucide-react";
-import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { ReactNode } from "react";
 import { RiNextjsFill, RiNodejsFill, RiReactjsFill } from "react-icons/ri";
 import {
   SiChakraui,
@@ -26,24 +25,21 @@ import {
   SiThreedotjs,
   SiTypescript,
   SiVuedotjs,
+  SiTensorflow,
+  SiOpencv,
+  SiFlutter,
+  SiDart,
+  SiGooglemaps,
+  SiRadixui,
+  SiLeaflet,
 } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import { TbBrandFramerMotion } from "react-icons/tb";
 const BASE_PATH = "/assets/projects-screenshots";
 
-const ProjectsLinks = ({ live, repo }: { live: string; repo?: string }) => {
+const ProjectsLinks = ({ repo }: { repo?: string }) => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-start gap-3 my-3 mb-8">
-      <Link
-        className="font-mono underline flex gap-2"
-        rel="noopener"
-        target="_new"
-        href={live}
-      >
-        <Button variant={"default"} size={"sm"}>
-          Visit Website
-          <ArrowUpRight className="ml-3 w-5 h-5" />
-        </Button>
-      </Link>
       {repo && (
         <Link
           className="font-mono underline flex gap-2"
@@ -222,6 +218,54 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <SiSupabase />,
   },
+  tensorflow: {
+    title: "TensorFlow",
+    bg: "black",
+    fg: "white",
+    icon: <SiTensorflow />,
+  },
+  opencv: {
+    title: "OpenCV",
+    bg: "black",
+    fg: "white",
+    icon: <SiOpencv />,
+  },
+  flutter: {
+    title: "Flutter",
+    bg: "black",
+    fg: "white",
+    icon: <SiFlutter />,
+  },
+  dart: {
+    title: "Dart",
+    bg: "black",
+    fg: "white",
+    icon: <SiDart />,
+  },
+  googlemaps: {
+    title: "Google Maps API",
+    bg: "black",
+    fg: "white",
+    icon: <SiGooglemaps />,
+  },
+  java: {
+    title: "Java",
+    bg: "black",
+    fg: "white",
+    icon: <FaJava />,
+  },
+  radix: {
+    title: "Radix UI",
+    bg: "black",
+    fg: "white",
+    icon: <SiRadixui />,
+  },
+  leaflet: {
+    title: "Leaflet",
+    bg: "black",
+    fg: "white",
+    icon: <SiLeaflet />,
+  },
 };
 export type Project = {
   id: string;
@@ -229,266 +273,196 @@ export type Project = {
   title: string;
   src: string;
   screenshots: string[];
-  skills: { frontend: Skill[]; backend: Skill[] };
+  skills: { frontend: Skill[]; backend: Skill[]; model?: Skill[] };
   content: React.ReactNode | any;
   github?: string;
   live: string;
 };
 const projects: Project[] = [
   {
-    id: "codingducks",
-    category: "Coding platform",
-    title: "Coding Ducks",
-    src: "/assets/projects-screenshots/codingducks/landing.png",
-    screenshots: ["landing.png"],
+    id: "campus-explorer",
+    category: "Mobile Application",
+    title: "Campus Explorer",
+    src: "/assets/projects-screenshots/CampusExplorer/Thumbnail.png",
+    screenshots: ["landing_page.png", "login_page.png", "home_page.png", "map_interface.png", "select_location.png", "quick_finds.png", "profile_creation.png", "profile_section.png", "settings_page.png"],
     skills: {
       frontend: [
-        PROJECT_SKILLS.ts,
-        PROJECT_SKILLS.next,
-        PROJECT_SKILLS.chakra,
-        PROJECT_SKILLS.reactQuery,
-        PROJECT_SKILLS.firebase,
+        PROJECT_SKILLS.flutter,
+        PROJECT_SKILLS.dart,
+        PROJECT_SKILLS.googlemaps,
       ],
       backend: [
-        PROJECT_SKILLS.node,
-        PROJECT_SKILLS.express,
-        PROJECT_SKILLS.prisma,
-        PROJECT_SKILLS.python,
-        PROJECT_SKILLS.postgres,
-        PROJECT_SKILLS.sockerio,
+        PROJECT_SKILLS.java,
+        PROJECT_SKILLS.firebase,
       ],
     },
-    live: "https://www.codingducks.xyz/",
-    github: "https://github.com/Naresh-Khatri/Coding-Ducks",
+    live: "#",
+    github: "https://github.com/Abhijit-cmd/Campus-Explorer",
     get content() {
       return (
         <div>
-          <TypographyP className="font-mono text-2xl text-center">
-            Coding ducks = LeetCode + CodePen + CSS Battles
-          </TypographyP>
           <TypographyP className="font-mono ">
-            Coding Ducks is your coding dojo — where you level up your skills,
-            battle in real-time code duels, and earn badges like a true code
-            warrior. Track your progress, flex your brain, and climb the
-            leaderboard. Ready to quack the code?
+            Campus Explorer is a mobile application built using Flutter SDK and Dart to streamline navigation across university campuses. Developed as part of a Capstone Project at Presidency University, the app aims to enhance the campus experience for students, faculty, and visitors by integrating real-time directions, voice guidance, and campus resource information into a single, easy-to-use platform.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <TypographyH3 className="my-4 mt-8">Problems </TypographyH3>
-          <p className="font-mono mb-2">
-            Solve coding problems similar to LeetCode, enhancing your
-            problem-solving skills across various languages.
+          <ProjectsLinks repo={this.github} />
+          <p className="font-mono mb-2 mt-4">
+            Campus Explorer simplifies navigation of large university campuses, providing an intuitive and accessible solution to campus navigation challenges for new students and individuals with disabilities.
           </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/codingducks/problems.png`,
-              `${BASE_PATH}/codingducks/problem.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Ducklets</TypographyH3>
+          <SlideShow images={[`${BASE_PATH}/CampusExplorer/landing_page.png`]} />
+          <TypographyH3 className="my-4 mt-8">Authentication & Onboarding</TypographyH3>
           <p className="font-mono mb-2">
-            Collaborate in real-time with others in a multiplayer coding
-            environment, just like CodePen but with a social twist.
+            Secure login system with user authentication powered by Firebase. New users can create personalized profiles to customize their campus navigation experience.
           </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/codingducks/ducklets.png`,
-              `${BASE_PATH}/codingducks/ducklet1.png`,
-              `${BASE_PATH}/codingducks/ducklet2.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">UI Battles </TypographyH3>
-
+          <SlideShow images={[`${BASE_PATH}/CampusExplorer/login_page.png`, `${BASE_PATH}/CampusExplorer/profile_creation.png`]} />
+          <TypographyH3 className="my-4 mt-8">Interactive Campus Maps</TypographyH3>
           <p className="font-mono mb-2">
-            Challenge yourself to create UI components with HTML/CSS/JS, and get
-            instant feedback with an automated similarity scoring.
+            Real-time interactive maps powered by Google Maps API allow users to zoom, pan, and explore buildings and landmarks within the campus with ease. The app provides turn-by-turn directions with real-time GPS tracking.
           </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/codingducks/css-battles.png`,
-              `${BASE_PATH}/codingducks/css-battle.png`,
-              `${BASE_PATH}/codingducks/css-battle2.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Contests </TypographyH3>
+          <SlideShow images={[`${BASE_PATH}/CampusExplorer/home_page.png`, `${BASE_PATH}/CampusExplorer/map_interface.png`]} />
+          <TypographyH3 className="my-4 mt-8">Smart Navigation & Quick Finds</TypographyH3>
           <p className="font-mono mb-2">
-            Organize or participate in coding competitions. Successfully used to
-            host three contests during college.
+            Select your destination from a comprehensive list of campus locations. The app offers voice-guided navigation for hands-free, accessible directions to any building, department, or amenity on campus.
           </p>
-          <SlideShow images={[`${BASE_PATH}/codingducks/contests.png`]} />
-          <TypographyH3 className="my-4 mt-8">Playground </TypographyH3>
-          <p className="font-mono mb-2">
-            Test and execute your code instantly in my versatile online code
-            runner.
+          <SlideShow images={[`${BASE_PATH}/CampusExplorer/select_location.png`, `${BASE_PATH}/CampusExplorer/quick_finds.png`]} />
+          <TypographyH3 className="my-4 mt-8">Key Features</TypographyH3>
+          <ul className="list-disc ml-6">
+            <li className="font-mono mb-2"><strong>Real-time Interactive Maps:</strong> Zoom, pan, and explore campus buildings and landmarks</li>
+            <li className="font-mono mb-2"><strong>Voice-Guided Directions:</strong> Hands-free navigation with voice assistance for improved accessibility</li>
+            <li className="font-mono mb-2"><strong>Personalized Recommendations:</strong> Save favorite locations and track frequently visited spots</li>
+            <li className="font-mono mb-2"><strong>Campus Resources:</strong> Access campus events, departments, and amenities in one place</li>
+            <li className="font-mono mb-2"><strong>Secure Authentication:</strong> User data protected through Firebase authentication</li>
+          </ul>
+          <SlideShow images={[`${BASE_PATH}/CampusExplorer/profile_section.png`, `${BASE_PATH}/CampusExplorer/settings_page.png`]} />
+          <p className="font-mono mb-2 mt-8">
+            Campus Explorer was developed as a Capstone Project at Presidency University to address the real-world challenge of campus navigation, making university life easier for everyone.
           </p>
-          <SlideShow images={[`${BASE_PATH}/codingducks/playground.png`]} />
-          <TypographyH3 className="my-4 mt-8">Users</TypographyH3>
-
-          <p className="font-mono mb-2">
-            Track your progress, earn badges, and climb the rankings with
-            detailed user profiles and activity tracking.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/codingducks/users.png`,
-              `${BASE_PATH}/codingducks/user.png`,
-            ]}
-          />
         </div>
       );
     },
   },
   {
-    id: "couponluxury",
-    category: "Coupon site",
-    title: "Coupon Luxury",
-    src: "/assets/projects-screenshots/couponluxury/landing.png",
-    screenshots: ["1.png", "2.png", "3.png", "4.png", "5.png"],
-    live: "https://www.couponluxury.com/",
+    id: "sign-language-translator",
+    category: "AI/ML Application",
+    title: "Sign Language Translator",
+    src: "/assets/projects-screenshots/Signlanguage translator/landing.jpeg",
+    screenshots: ["landing.jpeg", "about.jpeg", "howtouse.jpeg", "languageselection.jpeg", "model.jpeg", "working.jpeg"],
+    live: "#",
+    github: "https://github.com/Abhijit-cmd/Sign-Language-Translator",
     skills: {
       frontend: [
-        PROJECT_SKILLS.js,
+        PROJECT_SKILLS.ts,
         PROJECT_SKILLS.next,
-        PROJECT_SKILLS.chakra,
-        PROJECT_SKILLS.vue,
+        PROJECT_SKILLS.tailwind,
+      ],
+      model: [
+        PROJECT_SKILLS.tensorflow,
+        PROJECT_SKILLS.opencv,
       ],
       backend: [
-        PROJECT_SKILLS.node,
-        PROJECT_SKILLS.express,
-        PROJECT_SKILLS.prisma,
-        PROJECT_SKILLS.postgres,
-        PROJECT_SKILLS.docker,
+        PROJECT_SKILLS.python,
       ],
     },
     get content(): JSX.Element {
       return (
         <div>
           <TypographyP className="font-mono ">
-            CouponLuxury is your go-to destination for snagging the best deals
-            without lifting a finger. Whether you&apos;re hunting for the latest
-            discounts or trying to save a buck at your favorite stores,
-            CouponLuxury&apos;s got you covered.
+            Sign Language Translator is a deep learning-powered application that translates American Sign Language (ASL) gestures into text using a trained neural network model. Built with Python, TensorFlow/Keras, and OpenCV, this tool aims to improve communication for the hearing and speech impaired by recognizing hand gestures in real-time.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
+          <ProjectsLinks repo={this.github} />
           <p className="font-mono mb-2 mt-4">
-            As soon as you land, boom! You&apos;re greeted with the freshest
-            coupons and top-tier deals that&apos;ll make your wallet happy.
+            The Sign Language Translator processes real-time webcam input to recognize 26 ASL alphabet gestures and converts them into corresponding English letters, enabling users to communicate without speech.
           </p>
-          <SlideShow images={[`${BASE_PATH}/couponluxury/landing.png`]} />
-          <TypographyH3 className="my-4 ">Stores</TypographyH3>
+          <SlideShow images={[`${BASE_PATH}/Signlanguage translator/landing.jpeg`]} />
+          <TypographyH3 className="my-4 mt-8">About the Project</TypographyH3>
           <p className="font-mono mb-2">
-            Dive into a comprehensive list of stores, each packed with exclusive
-            deals and discounts. It&apos;s like having a VIP pass to every sale
-            in town.
+            This project leverages cutting-edge machine learning techniques to bridge communication gaps. The model is trained on thousands of ASL gesture images to accurately recognize and translate hand signs into readable text.
           </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/couponluxury/stores.png`,
-              `${BASE_PATH}/couponluxury/store.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Categories</TypographyH3>
-
+          <SlideShow images={[`${BASE_PATH}/Signlanguage translator/about.jpeg`]} />
+          <TypographyH3 className="my-4 mt-8">How to Use</TypographyH3>
           <p className="font-mono mb-2">
-            Whatever you&apos;re into—fashion, tech, food—you&apos;ll find it
-            neatly organized here. No more endless scrolling; just pick a
-            category and get the best offers instantly.
+            Simply allow camera access, position your hand in front of the webcam, and perform ASL gestures. The application will instantly recognize and display the corresponding letter on screen.
           </p>
-          <SlideShow images={[`${BASE_PATH}/couponluxury/categories.png`]} />
-          <TypographyH3 className="my-4 mt-8">Custom CMS </TypographyH3>
+          <SlideShow images={[`${BASE_PATH}/Signlanguage translator/howtouse.jpeg`]} />
+          <TypographyH3 className="my-4 mt-8">Language Selection & Model</TypographyH3>
           <p className="font-mono mb-2">
-            Powered by Vue.js, this bad boy allows us to keep the content
-            dynamic and up-to-date. From flash sales to limited-time offers, my
-            CMS ensures everything&apos;s live and relevant.
+            Choose from multiple sign language systems and customize your translation experience. The interface supports various regional sign language variations. The deep learning model is trained on thousands of ASL gesture images to accurately recognize and translate hand signs.
           </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/couponluxury/cms-1.png`,
-              `${BASE_PATH}/couponluxury/cms-2.png`,
-            ]}
-          />
-          <p className="font-mono mb-2 mt-5">
-            Plus, I&apos;ve sprinkled in some extra magic like personalized
-            deal recommendations, user-friendly search features, and a sleek,
-            responsive design that works like a charm on any device.
-          </p>
+          <SlideShow images={[`${BASE_PATH}/Signlanguage translator/languageselection.jpeg`, `${BASE_PATH}/Signlanguage translator/model.jpeg`]} />
+          <TypographyH3 className="my-4 mt-8">Real-Time Recognition</TypographyH3>
           <p className="font-mono mb-2">
-            CouponLuxury isn&apos;t just a website; it&apos;s your personal deal-hunting
-            assistant, ensuring you never miss out on a bargain!
+            Watch the magic happen as the application processes your gestures in real-time. The neural network analyzes hand positions, shapes, and movements to accurately identify each letter of the ASL alphabet.
           </p>
-          {/* <TypographyP className="my-4 mt-8">
-          <strong>Misc:</strong>
-          Hosted not one, not two, but THREE coding contests (Codemacha) during
-          college. Safe to say, Coding Ducks passed the vibe check.
-        </TypographyP>
-        <TypographyP className="my-4 mt-8">
-          <strong>Target Audience:</strong>
-          For all the novice coders out there ready to make their mark.
-        </TypographyP> */}
+          <SlideShow images={[`${BASE_PATH}/Signlanguage translator/working.jpeg`]} />
+          <p className="font-mono mb-2 mt-8">
+            This project demonstrates the power of AI in breaking down communication barriers and making technology more accessible for everyone. It&apos;s not just code—it&apos;s about creating meaningful impact.
+          </p>
         </div>
       );
     },
   },
   {
-    id: "the-booking-desk",
-    category: "Travel",
-    title: "The Booking Desk",
-    src: "/assets/projects-screenshots/the-booking-desk/landing.png",
-    screenshots: ["1.png"],
-    live: "https://thebookingdesk.com/",
+    id: "weatherly",
+    category: "Weather Application",
+    title: "Weatherly",
+    src: "/assets/projects-screenshots/Weatherly/Design.png",
+    screenshots: ["Design.png", "landing page in dark bg.png", "landing page in light bg.png"],
+    live: "#",
+    github: "#",
     skills: {
       frontend: [
         PROJECT_SKILLS.ts,
         PROJECT_SKILLS.next,
-        PROJECT_SKILLS.aceternity,
+        PROJECT_SKILLS.react,
         PROJECT_SKILLS.tailwind,
+        PROJECT_SKILLS.radix,
+        PROJECT_SKILLS.leaflet,
       ],
-      backend: [PROJECT_SKILLS.sanity],
+      backend: [],
     },
     get content() {
       return (
         <div>
           <TypographyP className="font-mono ">
-            The Booking Desk is your ultimate travel consultation hub, designed
-            to turn your wanderlust dreams into reality. With a focus on smooth
-            and visually captivating animations, navigating the site feels like
-            a breeze—it&apos;s almost as if the destinations are calling you.
+            Weatherly is a comprehensive weather application that provides real-time updates, forecasts, and detailed weather metrics. Built with modern web technologies to deliver a seamless and engaging user experience with accessibility at its core.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
+          <ProjectsLinks repo={this.github} />
+          <p className="font-mono mb-2 mt-4">
+            Stay informed with accurate weather data, air quality monitoring, UV index tracking, and interactive maps—all in a beautiful, responsive interface that adapts to your preferences.
+          </p>
+          <SlideShow images={[`${BASE_PATH}/Weatherly/Design.png`]} />
+          <TypographyH3 className="my-4 mt-8">Key Features</TypographyH3>
+          <ul className="list-disc ml-6">
+            <li className="font-mono mb-2"><strong>Real-time Weather Updates:</strong> Get current weather conditions and accurate forecasts</li>
+            <li className="font-mono mb-2"><strong>Detailed Metrics:</strong> Temperature, humidity, wind speed, and atmospheric pressure</li>
+            <li className="font-mono mb-2"><strong>Air Quality & UV Index:</strong> Monitor air quality levels and UV radiation</li>
+            <li className="font-mono mb-2"><strong>Interactive Maps:</strong> Visualize weather patterns with React Leaflet integration</li>
+            <li className="font-mono mb-2"><strong>Theme Support:</strong> Switch between light and dark modes seamlessly</li>
+            <li className="font-mono mb-2"><strong>Multi-language Support:</strong> Access weather data in your preferred language</li>
+            <li className="font-mono mb-2"><strong>Responsive Design:</strong> Optimized for all devices and screen sizes</li>
+            <li className="font-mono mb-2"><strong>Accessibility-Focused:</strong> Built with comprehensive accessibility features</li>
+          </ul>
+          <TypographyH3 className="my-4 mt-8">Light & Dark Themes</TypographyH3>
+          <p className="font-mono mb-2">
+            Weatherly features a beautiful theme system powered by next-themes, allowing users to switch between light and dark modes based on their preference or system settings.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/Weatherly/landing page in light bg.png`,
+              `${BASE_PATH}/Weatherly/landing page in dark bg.png`,
+            ]}
+          />
+          <TypographyH3 className="my-4 mt-8">Tech Stack</TypographyH3>
+          <ul className="list-disc ml-6">
+            <li className="font-mono mb-2"><strong>Frontend:</strong> Next.js, React, TypeScript, Tailwind CSS</li>
+            <li className="font-mono mb-2"><strong>UI Components:</strong> Radix UI for accessible, unstyled components</li>
+            <li className="font-mono mb-2"><strong>Icons:</strong> Lucide React for beautiful, consistent icons</li>
+            <li className="font-mono mb-2"><strong>Charts:</strong> Recharts for composable data visualization</li>
+            <li className="font-mono mb-2"><strong>Maps:</strong> React Leaflet for interactive weather maps</li>
+            <li className="font-mono mb-2"><strong>API:</strong> OpenWeather API for accurate weather data</li>
+            <li className="font-mono mb-2"><strong>Error Handling:</strong> React Error Boundary for robust error management</li>
+          </ul>
           <p className="font-mono mb-2 mt-8">
-            A sleek, modern interface greets you, featuring the latest travel
-            tips, deals, and must-visit spots around the globe.
-          </p>
-          <SlideShow images={[`${BASE_PATH}/the-booking-desk/landing.png`]} />
-          <TypographyH3 className="my-4 mt-8">Blogs</TypographyH3>
-          <p className="font-mono mb-2">
-            Dive into the curated articles written by travel experts. Whether
-            you&apos;re looking for hidden gems or travel hacks, our blog section has
-            you covered.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/the-booking-desk/blogs.png`,
-              `${BASE_PATH}/the-booking-desk/blog.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Sanity CMS</TypographyH3>
-
-          <p className="font-mono mb-2">
-            Keeping everything fresh and up-to-date, I&apos;ve integrated Sanity CMS
-            to manage all the content with ease, ensuring you always get the
-            latest and greatest information.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/the-booking-desk/cms-1.png`,
-              `${BASE_PATH}/the-booking-desk/cms-2.png`,
-            ]}
-          />
-          <p className="font-mono mb-2 my-8">
-            With a stunning 100% score on Lighthouse, The Booking Desk isn&apos;t
-            just beautiful—it&apos;s built to perform. Whether you&apos;re planning your
-            next adventure or just daydreaming, our site delivers a top-notch
-            experience that&apos;s both informative and enjoyable.
+            Weatherly demonstrates modern web development practices with a focus on performance, accessibility, and user experience. The application is optimized for all devices and provides accurate weather information in an intuitive, visually appealing interface.
           </p>
         </div>
       );
@@ -500,8 +474,8 @@ const projects: Project[] = [
     title: "My Portfolio",
     src: "/assets/projects-screenshots/portfolio/landing.png",
     screenshots: ["1.png"],
-    live: "http://nareshkhatri.vercel.app",
-    github:"https://github.com/Naresh-Khatri/Portfolio",
+    live: "#",
+    github:"#",
     skills: {
       frontend: [
         PROJECT_SKILLS.ts,
@@ -521,7 +495,7 @@ const projects: Project[] = [
             Welcome to my digital playground, where creativity meets code in the
             dopest way possible.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
+          <ProjectsLinks repo={this.github} />
           <TypographyH3 className="my-4 mt-8">
             Beautiful 3D Objects{" "}
           </TypographyH3>
@@ -566,8 +540,8 @@ const projects: Project[] = [
     title: "GhostChat",
     src: "/assets/projects-screenshots/ghostchat/1.png",
     screenshots: ["1.png", "2.png", "3.png", "4.png"],
-    live: "https://ghostchat.vercel.app",
-    github:"https://github.com/Naresh-Khatri/GhostChat",
+    live: "#",
+    github:"#",
     skills: {
       frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.next, PROJECT_SKILLS.chakra],
       backend: [PROJECT_SKILLS.supabase],
@@ -583,7 +557,7 @@ const projects: Project[] = [
             hidden, while your voice is heard. Say what you want, without the
             worry.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
+          <ProjectsLinks repo={this.github} />
           <SlideShow
             images={[
               `${BASE_PATH}/ghostchat/1.png`,
@@ -597,102 +571,72 @@ const projects: Project[] = [
     },
   },
   {
-    id: "jra",
-    category: "Result analyzer",
-    title: "JNTUA Results Analyzer",
-    src: "/assets/projects-screenshots/jra/1.png",
-    screenshots: ["1.png"],
-    live: "https://naresh-khatri.github.io/JNTUA-result-analyser-spa/#/",
+    id: "demo-ai",
+    category: "AI Voice Assistant",
+    title: "Demo AI",
+    src: "/assets/projects-screenshots/Demoaibot/Thumbnail.png",
+    screenshots: ["Thumbnail.png", "logo.png", "vsign-150w.png"],
+    live: "#",
+    github: "#",
     skills: {
-      frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.vue],
+      frontend: [
+        PROJECT_SKILLS.python,
+      ],
+      model: [
+        PROJECT_SKILLS.tensorflow,
+        PROJECT_SKILLS.opencv,
+      ],
       backend: [
-        PROJECT_SKILLS.node,
-        PROJECT_SKILLS.mongo,
-        PROJECT_SKILLS.express,
-        PROJECT_SKILLS.docker,
+        PROJECT_SKILLS.python,
       ],
     },
     get content() {
       return (
         <div>
           <TypographyP className="font-mono ">
-            JNTUA Results Analyzer was a revolutionary tool designed to simplify
-            and enhance the experience of accessing academic results. It served
-            as a powerful proxy between the JNTUA university results website and
-            its users, offering a range of features that made result analysis
-            faster and more efficient. Here&apos;s what made it stand out:
+            DEMO AI (Waifu) is an AI-powered voice assistant that combines the charm of anime VTuber characters with cutting-edge AI technologies. This project creates an engaging, real-time interactive experience where you can converse with your desired character without requiring powerful hardware.
           </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <SlideShow images={[`${BASE_PATH}/jra/1.png`]} />
-          <TypographyH3 className="my-4 mt-8">
-            Effortless Results Retrieval
-          </TypographyH3>
-          {/* Effortless Results Retrieval: */}
+          <ProjectsLinks repo={this.github} />
+          <p className="font-mono mb-2 mt-4">
+            Experience the future of AI interaction with a virtual character that listens, responds, and even lip-syncs while talking—all powered by advanced speech recognition, natural language processing, and text-to-speech technologies.
+          </p>
+          <SlideShow images={[`${BASE_PATH}/Demoaibot/Thumbnail.png`]} />
+          <TypographyH3 className="my-4 mt-8">Key Features</TypographyH3>
           <ul className="list-disc ml-6">
-            <li className="font-mono">
-              Search all your results using a single roll number, eliminating
-              the tedious task of sifting through thousands of rows on the
-              official site.
-            </li>
+            <li className="font-mono mb-2"><strong>Voice Interaction:</strong> Speak to your AI assistant and get instant responses with multiple speech recognition options</li>
+            <li className="font-mono mb-2"><strong>AI Chatbot Integration:</strong> Powered by OpenAI&apos;s GPT-3.5-turbo for engaging, dynamic conversations</li>
+            <li className="font-mono mb-2"><strong>Text-to-Speech:</strong> Hear responses with natural-sounding voices using Google TTS or ElevenLabs</li>
+            <li className="font-mono mb-2"><strong>VTube Studio Integration:</strong> Seamless connection with VTube Studio for lifelike visual interactions</li>
+            <li className="font-mono mb-2"><strong>Lip Sync Animation:</strong> Character mouth movements synchronized with speech</li>
+            <li className="font-mono mb-2"><strong>Memory System:</strong> Remembers previous conversations for contextual interactions</li>
+            <li className="font-mono mb-2"><strong>Customizable Personality:</strong> Configure character behavior and personality traits</li>
           </ul>
-          <TypographyH3 className="my-4 mt-8">Class-Wise Results:</TypographyH3>
+          <SlideShow images={[`${BASE_PATH}/Demoaibot/logo.png`, `${BASE_PATH}/Demoaibot/vsign-150w.png`]} />
+          <TypographyH3 className="my-4 mt-8">Speech Recognition Options</TypographyH3>
           <ul className="list-disc ml-6">
-            <li className="font-mono">
-              class-wise results effortlessly by entering a roll number range.
-              No more manual searches or filtering.
-            </li>
+            <li className="font-mono mb-2"><strong>OpenAI Whisper:</strong> Premium speech recognition with high accuracy</li>
+            <li className="font-mono mb-2"><strong>Google Speech Recognition:</strong> Free alternative for voice input</li>
+            <li className="font-mono mb-2"><strong>Console Mode:</strong> Type prompts directly if you prefer keyboard input</li>
           </ul>
-          <TypographyH3 className="my-4 mt-8">Faculty Features:</TypographyH3>
+          <TypographyH3 className="my-4 mt-8">Text-to-Speech Options</TypographyH3>
           <ul className="list-disc ml-6">
-            <li className="font-mono">
-              Faculty members could download batch results in Excel format,
-              making administrative tasks a breeze.
-            </li>
+            <li className="font-mono mb-2"><strong>Google TTS:</strong> Free and simple text-to-speech solution</li>
+            <li className="font-mono mb-2"><strong>ElevenLabs:</strong> Premium quality with a wide variety of natural voices</li>
+            <li className="font-mono mb-2"><strong>Console Output:</strong> Text-only responses for testing</li>
           </ul>
-          <TypographyH3 className="my-4 mt-8">
-            Enhanced Data Insights:
-          </TypographyH3>
+          <TypographyH3 className="my-4 mt-8">Technologies Used</TypographyH3>
           <ul className="list-disc ml-6">
-            <li className="font-mono">
-              Each result came with additional features including:
-              <ul className="list-disc font-mono ml-6">
-                <li>
-                  <strong>CGPA Calculations: </strong>Easily track your
-                  cumulative grade point average.
-                </li>
-                <li>
-                  <strong>Charts:</strong> Visualize your academic performance
-                  with comprehensive charts.
-                </li>
-                <li>
-                  <strong>Future Projections:</strong> Get insights into
-                  potential future outcomes based on current performance.
-                </li>
-                <li>
-                  <strong> Backlog Counts: </strong>Keep track of your backlog
-                  subjects at a glance.
-                </li>
-              </ul>
-            </li>
+            <li className="font-mono mb-2"><strong>Python:</strong> Core programming language</li>
+            <li className="font-mono mb-2"><strong>OpenAI GPT-3.5-turbo:</strong> Natural language processing and conversation</li>
+            <li className="font-mono mb-2"><strong>OpenAI Whisper:</strong> Advanced speech recognition</li>
+            <li className="font-mono mb-2"><strong>Google Speech Recognition:</strong> Alternative voice input</li>
+            <li className="font-mono mb-2"><strong>Google TTS / ElevenLabs:</strong> Text-to-speech synthesis</li>
+            <li className="font-mono mb-2"><strong>VTube Studio API:</strong> Character animation and lip sync</li>
+            <li className="font-mono mb-2"><strong>TensorFlow/OpenCV:</strong> Computer vision and model processing</li>
           </ul>
-          <TypographyH3 className="my-4 mt-8">Performance:</TypographyH3>
-          <ul className="list-disc ml-6">
-            <li className="font-mono">
-              The application was significantly faster and more efficient than
-              the official site, providing a smoother user experience.
-            </li>
-          </ul>
-          <TypographyH3 className="my-4 mt-8">Downfall:</TypographyH3>
-          <ul className="list-disc ml-6">
-            <li className="font-mono">
-              Unfortunately, as of May 2022, the tool stopped working due to the
-              introduction of CAPTCHA on the official JNTUA results site, which
-              disrupted the seamless functionality of the app. JNTUA Results
-              Analyzer transformed the way students and faculty interacted with
-              academic results, making it a must-have tool until its unexpected
-              shutdown.
-            </li>
-          </ul>
+          <p className="font-mono mb-2 mt-8">
+            DEMO AI represents the convergence of AI, voice technology, and virtual character animation, creating an immersive experience that brings anime characters to life through intelligent conversation and realistic visual feedback.
+          </p>
         </div>
       );
     },

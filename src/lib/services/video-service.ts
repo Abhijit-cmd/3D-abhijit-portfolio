@@ -1,6 +1,5 @@
 import { VideoMetadata, VideoUploadRequest, VideoUpdateRequest, VideoSearchFilters, PaginatedVideoResponse } from '@/types/video';
 import { FileStorageService } from '@/lib/storage/file-storage';
-<<<<<<< HEAD
 import { VideoRepository } from '@/lib/repositories/video-repository';
 
 export class VideoService {
@@ -10,17 +9,6 @@ export class VideoService {
   constructor() {
     this.fileStorage = new FileStorageService();
     this.repository = new VideoRepository();
-=======
-import { VideoDatabaseService } from '@/lib/storage/video-database';
-
-export class VideoService {
-  private fileStorage: FileStorageService;
-  private database: VideoDatabaseService;
-
-  constructor() {
-    this.fileStorage = new FileStorageService();
-    this.database = new VideoDatabaseService();
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
   }
 
   /**
@@ -52,7 +40,7 @@ export class VideoService {
       const buffer = file instanceof File ? Buffer.from(await file.arrayBuffer()) : file;
 
       // Store the video file
-      const filePath = await this.fileStorage.storeVideoFile(buffer, filename);
+      await this.fileStorage.storeVideoFile(buffer, filename);
 
       // Create video metadata
       const videoMetadata: Omit<VideoMetadata, 'uploadDate' | 'lastModified' | 'viewCount'> = {
@@ -69,11 +57,7 @@ export class VideoService {
       };
 
       // Save to database
-<<<<<<< HEAD
       const savedVideo = await this.repository.create(videoMetadata);
-=======
-      const savedVideo = await this.database.createVideo(videoMetadata);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
       return savedVideo;
     } catch (error) {
@@ -87,11 +71,7 @@ export class VideoService {
    */
   async getVideoById(id: string): Promise<VideoMetadata | null> {
     try {
-<<<<<<< HEAD
       return await this.repository.findById(id);
-=======
-      return await this.database.getVideoById(id);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to get video by ID:', error);
       throw error;
@@ -103,11 +83,7 @@ export class VideoService {
    */
   async updateVideo(id: string, updates: VideoUpdateRequest): Promise<VideoMetadata | null> {
     try {
-<<<<<<< HEAD
       return await this.repository.update(id, updates);
-=======
-      return await this.database.updateVideo(id, updates);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to update video:', error);
       throw error;
@@ -120,21 +96,13 @@ export class VideoService {
   async deleteVideo(id: string): Promise<boolean> {
     try {
       // Get video metadata first
-<<<<<<< HEAD
       const video = await this.repository.findById(id);
-=======
-      const video = await this.database.getVideoById(id);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
       if (!video) {
         return false;
       }
 
       // Delete from database first
-<<<<<<< HEAD
       const deleted = await this.repository.delete(id);
-=======
-      const deleted = await this.database.deleteVideo(id);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
       if (!deleted) {
         return false;
       }
@@ -170,11 +138,7 @@ export class VideoService {
    */
   async getAllVideos(filters?: VideoSearchFilters): Promise<VideoMetadata[]> {
     try {
-<<<<<<< HEAD
       return await this.repository.findAll(filters);
-=======
-      return await this.database.getAllVideos(filters);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to get all videos:', error);
       throw error;
@@ -190,11 +154,7 @@ export class VideoService {
     filters?: VideoSearchFilters
   ): Promise<PaginatedVideoResponse> {
     try {
-<<<<<<< HEAD
       return await this.repository.findPaginated(page, limit, filters);
-=======
-      return await this.database.getPaginatedVideos(page, limit, filters);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to get paginated videos:', error);
       throw error;
@@ -206,11 +166,7 @@ export class VideoService {
    */
   async getPublicVideos(page: number = 1, limit: number = 12): Promise<PaginatedVideoResponse> {
     try {
-<<<<<<< HEAD
       return await this.repository.findPaginated(page, limit, { isPublic: true });
-=======
-      return await this.database.getPaginatedVideos(page, limit, { isPublic: true });
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to get public videos:', error);
       throw error;
@@ -231,11 +187,7 @@ export class VideoService {
         ...additionalFilters,
         searchTerm
       };
-<<<<<<< HEAD
       return await this.repository.findPaginated(page, limit, filters);
-=======
-      return await this.database.getPaginatedVideos(page, limit, filters);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to search videos:', error);
       throw error;
@@ -247,11 +199,7 @@ export class VideoService {
    */
   async incrementViewCount(id: string): Promise<void> {
     try {
-<<<<<<< HEAD
       await this.repository.incrementViewCount(id);
-=======
-      await this.database.incrementViewCount(id);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to increment view count:', error);
       // Don't throw error for view count failures
@@ -263,11 +211,7 @@ export class VideoService {
    */
   async getVideoStats() {
     try {
-<<<<<<< HEAD
       return await this.repository.getStats();
-=======
-      return await this.database.getVideoStats();
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
     } catch (error) {
       console.error('Failed to get video stats:', error);
       throw error;
@@ -323,6 +267,6 @@ export class VideoService {
    * Generate a unique ID
    */
   private generateUniqueId(): string {
-    return `video_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `video_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 }

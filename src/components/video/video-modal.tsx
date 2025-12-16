@@ -51,17 +51,8 @@ export function VideoModal({
     switch (category) {
       case 'gameplay':
         return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-<<<<<<< HEAD
       case 'funny_moments':
         return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-=======
-      case 'tutorial':
-        return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'review':
-        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      case 'stream':
-        return 'bg-red-500/20 text-red-400 border-red-500/30';
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
       default:
         return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     }
@@ -134,11 +125,7 @@ export function VideoModal({
               "px-3 py-1 rounded-full text-sm font-medium border",
               getCategoryColor(video.category)
             )}>
-<<<<<<< HEAD
               {video.category === 'funny_moments' ? 'Funny Moments' : video.category.charAt(0).toUpperCase() + video.category.slice(1)}
-=======
-              {video.category}
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
             </div>
             {!video.isPublic && (
               <div className="bg-orange-500/20 text-orange-400 border border-orange-500/30 px-3 py-1 rounded-full text-sm font-medium">
@@ -233,28 +220,11 @@ export function VideoModal({
                   <p className="font-semibold">{video.viewCount.toLocaleString()}</p>
                 </div>
                 <div className="space-y-1">
-<<<<<<< HEAD
                   <p className="text-xs text-muted-foreground uppercase tracking-wide">Published</p>
-=======
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide">File Size</p>
-                  <p className="font-semibold">{formatFileSize(video.size)}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide">Uploaded</p>
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
                   <p className="font-semibold text-sm">
                     {formatDistanceToNow(new Date(video.uploadDate), { addSuffix: true })}
                   </p>
                 </div>
-<<<<<<< HEAD
-=======
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide">Format</p>
-                  <p className="font-semibold text-sm uppercase">
-                    {video.mimeType.split('/')[1]}
-                  </p>
-                </div>
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
               </div>
 
               {/* Tags */}
@@ -273,40 +243,6 @@ export function VideoModal({
                   </div>
                 </div>
               )}
-<<<<<<< HEAD
-=======
-
-              {/* Technical Details */}
-              <div className="pt-4 border-t border-border">
-                <p className="text-xs text-muted-foreground uppercase tracking-wide mb-3">
-                  Technical Details
-                </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Original Name:</span>
-                    <span className="font-mono text-xs truncate ml-2" title={video.originalName}>
-                      {video.originalName}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">MIME Type:</span>
-                    <span className="font-mono text-xs">{video.mimeType}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Video ID:</span>
-                    <span className="font-mono text-xs">{video.id}</span>
-                  </div>
-                  {video.lastModified && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Last Modified:</span>
-                      <span className="text-xs">
-                        {new Date(video.lastModified).toLocaleDateString()}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
             </div>
           </div>
         </div>

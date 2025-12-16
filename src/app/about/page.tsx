@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { DiMongodb, DiNginx, DiNpm, DiPostgresql, DiVim } from "react-icons/di";
+import React, { useState, useMemo } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { DiMongodb, DiPostgresql } from "react-icons/di";
 import {
-  FaAws,
   FaCss3,
   FaDocker,
   FaEnvelope,
@@ -11,30 +10,27 @@ import {
   FaGithub,
   FaHtml5,
   FaLinkedin,
-  FaLinux,
   FaNodeJs,
   FaPhone,
-  FaReact,
-  FaVuejs,
-  FaYarn,
-} from "react-icons/fa6";
+} from "react-icons/fa";
 import {
   RiFirebaseFill,
-  RiJavascriptFill,
-  RiNextjsFill,
   RiTailwindCssFill,
 } from "react-icons/ri";
 import {
-  SiExpress,
   SiJavascript,
-  SiKubuntu,
-  SiPm2,
-  SiPrettier,
   SiTypescript,
-  SiVercel,
-  SiVisualstudiocode,
+  SiPython,
+  SiCplusplus,
+  SiC,
+  SiTensorflow,
+  SiPytorch,
+  SiNumpy,
+  SiPandas,
+  SiGraphql,
+  SiFigma,
+  SiNextdotjs,
 } from "react-icons/si";
-import { TbTerminal2 } from "react-icons/tb";
 
 // Contact Links Data
 const CONTACT_LINKS = [
@@ -67,35 +63,29 @@ const CONTACT_LINKS = [
 const TOOLS = [
   { name: "JavaScript", icon: <SiJavascript size="40px" color="#f0db4f" /> },
   { name: "TypeScript", icon: <SiTypescript size="40px" color="#007acc" /> },
+  { name: "Python", icon: <SiPython size="40px" color="#3776AB" /> },
+  { name: "C++", icon: <SiCplusplus size="40px" color="#00599C" /> },
+  { name: "C", icon: <SiC size="40px" color="#A8B9CC" /> },
   { name: "HTML", icon: <FaHtml5 size="40px" color="#e34c26" /> },
   { name: "CSS", icon: <FaCss3 size="40px" color="#563d7c" /> },
+  { name: "Next.js", icon: <SiNextdotjs size="40px" color="#fff" /> },
   { name: "Node.js", icon: <FaNodeJs size="40px" color="#6cc24a" /> },
-  { name: "React", icon: <FaReact size="40px" color="#61dafb" /> },
   { name: "Docker", icon: <FaDocker size="40px" color="#2496ed" /> },
-  { name: "NginX", icon: <DiNginx size="40px" color="#008000" /> },
-  { name: "Vue.js", icon: <FaVuejs size="40px" color="#41b883" /> },
-  { name: "Express", icon: <SiExpress size="40px" color="#fff" /> },
+  { name: "Git", icon: <FaGit size="40px" color="#f05032" /> },
+  { name: "GitHub", icon: <FaGithub size="40px" color="#fff" /> },
   { name: "PostgreSQL", icon: <DiPostgresql size="40px" color="#336791" /> },
   { name: "MongoDB", icon: <DiMongodb size="40px" color="#4db33d" /> },
   { name: "Tailwind", icon: <RiTailwindCssFill size="40px" color="#06b6d4" /> },
   { name: "Firebase", icon: <RiFirebaseFill size="40px" color="#FFCA28" /> },
-  { name: "Git", icon: <FaGit size="40px" color="#f05032" /> },
-  { name: "GitHub", icon: <FaGithub size="40px" color="#fff" /> },
-  { name: "VS Code", icon: <SiVisualstudiocode size="40px" color="#007acc" /> },
-  { name: "Vim", icon: <DiVim size="40px" color="#fff" /> },
-  { name: "Prettier", icon: <SiPrettier size="40px" color="#f7b93c" /> },
-  { name: "NPM", icon: <DiNpm size="40px" color="#CB3837" /> },
-  { name: "Yarn", icon: <FaYarn size="40px" color="#2C8EBB" /> },
-  { name: "Vercel", icon: <SiVercel size="40px" color="#fff" /> },
-  { name: "Linux", icon: <FaLinux size="40px" color="#fff" /> },
-  { name: "Kubuntu", icon: <SiKubuntu size="40px" color="#0077C4" /> },
-  { name: "Terminal", icon: <TbTerminal2 size="40px" color="#fff" /> },
-  { name: "AWS", icon: <FaAws size="40px" color="#3f51b5" /> },
+  { name: "TensorFlow", icon: <SiTensorflow size="40px" color="#FF6F00" /> },
+  { name: "PyTorch", icon: <SiPytorch size="40px" color="#EE4C2C" /> },
+  { name: "NumPy", icon: <SiNumpy size="40px" color="#013243" /> },
+  { name: "Pandas", icon: <SiPandas size="40px" color="#150458" /> },
+  { name: "GraphQL", icon: <SiGraphql size="40px" color="#E10098" /> },
+  { name: "Figma", icon: <SiFigma size="40px" color="#F24E1E" /> },
 ];
 
 function Page() {
-  const [toolsLoaded, setToolsLoaded] = useState(false);
-  
   // Mouse tracking for 3D tilt effect on Profile Card
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -114,10 +104,6 @@ function Page() {
     x.set(0);
     y.set(0);
   }
-
-  useEffect(() => {
-    setToolsLoaded(true);
-  }, []);
 
   return (
     <div className="container mx-auto px-4 md:px-[50px] xl:px-[100px] text-zinc-300 pt-24 pb-24 perspective-2000 overflow-hidden">
@@ -149,7 +135,6 @@ function Page() {
                 className="relative w-56 h-56 mb-8"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                style={{ translateZ: "50px" }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-500 rounded-3xl blur-2xl opacity-40 animate-pulse"></div>
                 <img
@@ -159,7 +144,7 @@ function Page() {
                 />
               </motion.div>
               
-              <div className="text-center space-y-3 mb-8" style={{ translateZ: "30px" }}>
+              <div className="text-center space-y-3 mb-8">
                 <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-500">
                   Abhijit Deb
                 </h2>
@@ -170,7 +155,7 @@ function Page() {
 
               <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent mb-8"></div>
 
-              <ul className="w-full flex flex-col gap-3" style={{ translateZ: "20px" }}>
+              <ul className="w-full flex flex-col gap-3">
                 {CONTACT_LINKS.map((link, idx) => (
                   <motion.li 
                     key={link.name}
@@ -210,7 +195,7 @@ function Page() {
             <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
             <div className="relative p-8 md:p-12 rounded-[1.8rem] bg-zinc-900/90 backdrop-blur-xl border border-zinc-800/50">
               <h1 className="text-4xl md:text-5xl font-bold mb-8 flex items-center gap-4 text-white">
-                About Me <span className="text-4xl animate-bounce"></span>
+                 <span className="text-4xl animate-bounce">About Me</span>
               </h1>
               <div className="space-y-6 text-lg text-zinc-400 leading-relaxed font-light">
                 <p>

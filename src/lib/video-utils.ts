@@ -72,11 +72,7 @@ export function validateVideoUploadData(data: {
   }
 
   // Validate category
-<<<<<<< HEAD
   const validCategories = ['gameplay', 'funny_moments'];
-=======
-  const validCategories = ['gameplay', 'tutorial', 'review', 'stream'];
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
   if (!validCategories.includes(data.category)) {
     errors.push('Invalid category selected');
   }

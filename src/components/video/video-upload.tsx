@@ -6,10 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { VideoMetadata, VideoUploadRequest, UploadProgress } from '@/types/video';
-<<<<<<< HEAD
-=======
-import { VideoService } from '@/lib/services/video-service';
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 import { cn } from '@/lib/utils';
 
 interface VideoUploadProps {
@@ -18,14 +14,11 @@ interface VideoUploadProps {
   className?: string;
 }
 
-<<<<<<< HEAD
 // Constants for video validation
 const SUPPORTED_FORMATS = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo'];
 const MAX_FILE_SIZE = 500 * 1024 * 1024; // 500MB
 const MAX_FILE_SIZE_FORMATTED = '500MB';
 
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 export function VideoUpload({ onUploadComplete, onUploadStart, className }: VideoUploadProps) {
   const [uploadProgress, setUploadProgress] = useState<UploadProgress | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -38,7 +31,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
   });
   const [tagInput, setTagInput] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-<<<<<<< HEAD
   const [selectedThumbnail, setSelectedThumbnail] = useState<File | null>(null);
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   
@@ -70,21 +62,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
 
     return { isValid: true };
   }, []);
-=======
-  
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const videoService = new VideoService();
-  const { toast } = useToast();
-
-  // Supported formats and max file size
-  const supportedFormats = videoService.getSupportedFormats();
-  const maxFileSize = videoService.getMaxFileSize();
-  const maxFileSizeFormatted = videoService.getMaxFileSizeFormatted();
-
-  const validateFile = useCallback((file: File): { isValid: boolean; error?: string } => {
-    return videoService.validateVideoFile(file);
-  }, [videoService]);
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
   const handleFileSelect = useCallback((file: File) => {
     const validation = validateFile(file);
@@ -134,7 +111,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
     }
   }, [handleFileSelect]);
 
-<<<<<<< HEAD
   const handleThumbnailSelect = useCallback((file: File) => {
     // Validate image format
     const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
@@ -174,8 +150,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
     }
   }, [handleThumbnailSelect]);
 
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
   const handleFormChange = useCallback((field: keyof VideoUploadRequest, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   }, []);
@@ -265,14 +239,11 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
         apiFormData.append('category', formData.category);
         apiFormData.append('tags', formData.tags.join(','));
         apiFormData.append('isPublic', formData.isPublic.toString());
-<<<<<<< HEAD
         
         // Add thumbnail if selected
         if (selectedThumbnail) {
           apiFormData.append('thumbnail', selectedThumbnail);
         }
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
         // Perform the actual upload via API
         const response = await fetch('/api/videos/upload', {
@@ -297,11 +268,8 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
 
         // Reset form
         setSelectedFile(null);
-<<<<<<< HEAD
         setSelectedThumbnail(null);
         setThumbnailPreview(null);
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
         setFormData({
           title: '',
           description: '',
@@ -314,12 +282,9 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
-<<<<<<< HEAD
         if (thumbnailInputRef.current) {
           thumbnailInputRef.current.value = '';
         }
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
         // Clear progress after a delay
         setTimeout(() => {
@@ -451,7 +416,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
         />
       </div>
 
-<<<<<<< HEAD
       {/* Thumbnail Upload */}
       <div className="space-y-4">
         <Label className="text-base font-semibold">Custom Thumbnail (Optional)</Label>
@@ -518,8 +482,6 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
         />
       </div>
 
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
       {/* Upload Progress */}
       {uploadProgress && (
         <div className="space-y-2">
@@ -585,13 +547,7 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
             disabled={isUploading}
           >
             <option value="gameplay">Gameplay</option>
-<<<<<<< HEAD
             <option value="funny_moments">Funny Moments</option>
-=======
-            <option value="tutorial">Tutorial</option>
-            <option value="review">Review</option>
-            <option value="stream">Stream</option>
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
           </select>
         </div>
 

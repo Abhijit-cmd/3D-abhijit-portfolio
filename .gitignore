@@ -26,13 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-<<<<<<< HEAD
 .env
 .env*.local
 .env.bak
-=======
-.env*.local
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
 # vercel
 .vercel
@@ -40,7 +36,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-<<<<<<< HEAD
 
 /src/generated/prisma
 
@@ -54,5 +49,3 @@ next-env.d.ts
 # test files
 test-*.html
 test-*.js
-=======
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509

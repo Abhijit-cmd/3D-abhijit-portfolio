@@ -45,7 +45,7 @@ const SlideShow = ({ images }: { images: string[] }) => {
                   alt="screenshot"
                   width={1000}
                   height={1000}
-                  className="w-full rounded-lg h-auto"
+                  className="w-full rounded-lg h-[400px] object-contain bg-zinc-900"
                 />
                 <AnimatePresence>
                   {hovering && (
