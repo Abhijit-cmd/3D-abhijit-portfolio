@@ -4,6 +4,9 @@ import { VideoSearchFilters } from '@/types/video';
 
 const videoService = new VideoService();
 
+// Mark this route as dynamic since it uses searchParams
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/videos - Get all videos or paginated videos with filters
  */

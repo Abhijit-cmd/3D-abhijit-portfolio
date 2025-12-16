@@ -16,11 +16,6 @@ const nextConfig = {
   
   // Production optimizations
   productionBrowserSourceMaps: false,
-  
-  // Experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
 };
 
 export default nextConfig;
