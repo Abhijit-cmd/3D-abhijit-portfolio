@@ -141,7 +141,7 @@ const ProjectContents = ({
         <div className="relative w-full max-w-2xl mx-auto mb-8 rounded-lg overflow-hidden">
           <div className="relative aspect-video bg-neutral-100 dark:bg-neutral-900">
             <Image
-              src={`${project.src.split(project.screenshots[0])[0]}${project.screenshots[currentScreenshotIndex]}`}
+              src={`/assets/projects-screenshots/${project.screenshots[currentScreenshotIndex]}`}
               alt={`${project.title} screenshot ${currentScreenshotIndex + 1}`}
               fill
               className="object-contain"
