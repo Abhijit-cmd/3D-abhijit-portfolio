@@ -29,9 +29,9 @@ const config = {
     return this.site + "/assets/seo/og-image.png";
   },
   social: {
-    discord:"https://discord.com/users/1439114943260786699",
+    discord: "https://discord.com/users/1439114943260786699",
     linkedin: "https://www.linkedin.com/in/abhi-deb/",
-    instagram: "https://www.instagram.com/aapbhijit/?igsh=YzVsNW0wcnhuY2h2#",
+    instagram: "https://www.instagram.com/aapbhijit/",
     facebook: "https://www.facebook.com/HotChaddi/",
     github: "https://github.com/Abhijit-cmd",
   },
