@@ -11,11 +11,13 @@ export class BlobStorageService implements StorageService {
       const blob = await put(`videos/${filename}`, file, {
         access: 'public',
         addRandomSuffix: false,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
       });
       
       return blob.url;
     } catch (error) {
       console.error('Blob upload error:', error);
+      console.error('Token available:', !!process.env.BLOB_READ_WRITE_TOKEN);
       throw new StorageError(
         'Failed to upload video to Vercel Blob',
         'UPLOAD_FAILED',
@@ -29,11 +31,13 @@ export class BlobStorageService implements StorageService {
       const blob = await put(`thumbnails/${filename}`, file, {
         access: 'public',
         addRandomSuffix: false,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
       });
       
       return blob.url;
     } catch (error) {
       console.error('Blob upload error:', error);
+      console.error('Token available:', !!process.env.BLOB_READ_WRITE_TOKEN);
       throw new StorageError(
         'Failed to upload thumbnail to Vercel Blob',
         'UPLOAD_FAILED',

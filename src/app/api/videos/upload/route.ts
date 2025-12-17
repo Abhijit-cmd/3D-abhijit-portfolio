@@ -5,10 +5,13 @@ import { StorageError } from '@/lib/services/storage';
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('Upload API called');
     const formData = await request.formData();
     
     // Extract video file
     const videoFile = formData.get('video') as File;
+    console.log('Video file:', videoFile ? videoFile.name : 'none');
+    
     if (!videoFile) {
       return NextResponse.json(
         { error: 'Video file is required' },
@@ -47,16 +50,20 @@ export async function POST(request: NextRequest) {
     };
 
     // Upload video
+    console.log('Creating video service...');
     const videoService = new VideoService();
+    console.log('Uploading video...');
     const videoMetadata = await videoService.uploadVideo(
       videoFile,
       uploadRequest,
       thumbnailFile || undefined
     );
 
+    console.log('Upload successful:', videoMetadata.id);
     return NextResponse.json(videoMetadata, { status: 201 });
   } catch (error) {
     console.error('Upload error:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
 
     // Handle storage errors
     if (error instanceof StorageError) {
