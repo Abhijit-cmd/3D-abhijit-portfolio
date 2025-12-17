@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import path from 'path';
 import { VideoService } from '@/lib/services/video-service';
+import { createStorageService } from '@/lib/services/storage';
+import { generateUniqueFilename } from '@/lib/utils/file-validation';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(
   request: NextRequest,
@@ -36,27 +39,20 @@ export async function POST(
       );
     }
 
-    // Convert file to buffer
-    const bytes = await thumbnail.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Generate unique filename
+    const filename = generateUniqueFilename(thumbnail.name);
 
-    // Generate filename
-    const extension = thumbnail.name.split('.').pop() || 'jpg';
-    const filename = `${videoId}.${extension}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'thumbnails');
-    const filepath = path.join(uploadDir, filename);
+    // Upload thumbnail using storage service
+    const storageService = createStorageService();
+    const thumbnailUrl = await storageService.uploadThumbnail(thumbnail, filename);
 
-    // Save file
-    await writeFile(filepath, buffer);
-
-    // Update video record with thumbnail path
+    // Update video record with thumbnail URL
     const videoService = new VideoService();
-    const thumbnailPath = `/uploads/thumbnails/${filename}`;
-    await videoService.updateVideo(videoId, { thumbnail: thumbnailPath });
+    await videoService.updateVideo(videoId, { thumbnail: thumbnailUrl });
 
     return NextResponse.json({
       success: true,
-      thumbnailPath,
+      thumbnailUrl,
       message: 'Thumbnail uploaded successfully'
     });
   } catch (error) {
