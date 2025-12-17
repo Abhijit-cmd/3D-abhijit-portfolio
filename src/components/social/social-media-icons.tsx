@@ -36,18 +36,19 @@ const SocialMediaButtons = () => {
   const ref = useRef<HTMLDivElement>(null);
   const show = useInView(ref, { once: true });
   return (
-    <div ref={ref} className="z-10">
+    <div ref={ref} className="flex gap-2 relative z-20">
       {show &&
         BUTTONS.map((button) => (
-          <Link 
+          <a 
             href={button.href} 
             key={button.name} 
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Visit ${button.name}`}
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 w-10 relative z-20"
           >
-            <Button variant={"ghost"}>{button.icon}</Button>
-          </Link>
+            {button.icon}
+          </a>
         ))}
     </div>
   );
