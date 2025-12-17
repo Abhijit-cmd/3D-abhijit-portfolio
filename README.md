@@ -60,6 +60,7 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 
     ```env
     DATABASE_URL="your_postgresql_connection_string"
+    BLOB_READ_WRITE_TOKEN="your_vercel_blob_token" # Only needed for production
     ```
 
 5. Set up the database:
@@ -70,9 +71,6 @@ Welcome to the repository for my personal portfolio website! This is where I sho
     ```
 
 6. Run the development server:
-=======
-4. Run the development server:
->>>>>>> 5e8de245757cd94140709dcc1c105d91c3469509
 
     ```bash
     npm run dev
@@ -85,11 +83,36 @@ Welcome to the repository for my personal portfolio website! This is where I sho
 
 ## 🚀 Deployment
 
-This site is deployed on Vercel. For your own deployment, follow these steps:
+This site is deployed on Vercel with Neon PostgreSQL and Vercel Blob storage.
 
-1. Push your code to a GitHub repository.
-2. Connect your repository to Vercel.
-3. Vercel will handle the deployment process.
+### Deployment Steps:
+
+1. **Set up Neon Database**
+   - Create a PostgreSQL database at [neon.tech](https://neon.tech)
+   - Copy the connection string
+
+2. **Set up Vercel Blob Storage**
+   - In Vercel Dashboard → Storage → Create Blob Store
+   - Copy the `BLOB_READ_WRITE_TOKEN`
+
+3. **Deploy to Vercel**
+   - Push your code to GitHub
+   - Connect repository to Vercel
+   - Add environment variables in Vercel:
+     - `DATABASE_URL`: Your Neon connection string
+     - `BLOB_READ_WRITE_TOKEN`: Your Vercel Blob token
+     - `RESEND_API_KEY`: (Optional) For contact form
+
+4. **Run Database Migrations**
+   ```bash
+   npx prisma migrate deploy
+   ```
+
+### Storage Configuration
+
+- **Development**: Videos stored locally in `/public/uploads/`
+- **Production**: Videos stored in Vercel Blob (100MB max per file)
+- The system automatically switches between local and cloud storage based on environment
 
 ## 🤝 Contributing
 
