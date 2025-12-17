@@ -111,7 +111,12 @@ This site is deployed on Vercel with Neon PostgreSQL and Vercel Blob storage.
 ### Storage Configuration
 
 - **Development**: Videos stored locally in `/public/uploads/`
-- **Production**: Videos stored in Vercel Blob (100MB max per file)
+- **Production**: Videos uploaded directly to Vercel Blob from the client (bypasses 4.5MB serverless function limit)
+- **Upload Flow**:
+  1. Client requests upload token from `/api/videos/upload`
+  2. Client uploads file directly to Vercel Blob storage
+  3. Client creates database record via `/api/videos/create`
+- **File Limits**: 500MB max per video, 5MB max per thumbnail
 - The system automatically switches between local and cloud storage based on environment
 
 ## 🤝 Contributing

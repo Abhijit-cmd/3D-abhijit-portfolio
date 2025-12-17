@@ -73,6 +73,35 @@ export class VideoService {
   }
 
   /**
+   * Create video record from pre-uploaded URLs (for client-side uploads)
+   */
+  async createVideoFromUrls(
+    uploadRequest: VideoUploadRequest,
+    videoUrl: string,
+    filename: string,
+    thumbnailUrl?: string
+  ): Promise<VideoMetadata> {
+    try {
+      // Create video record in database
+      const videoMetadata = await this.repository.create({
+        id: this.generateUniqueId(),
+        ...uploadRequest,
+        filename: videoUrl,
+        originalName: filename,
+        mimeType: 'video/mp4', // Default, can be passed as parameter if needed
+        size: 0, // Size not available from client-side upload
+        thumbnail: thumbnailUrl || '/assets/default-video-thumbnail.jpg',
+        tags: uploadRequest.tags || [],
+      });
+
+      return videoMetadata;
+    } catch (error) {
+      console.error('Failed to create video from URLs:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Get video by ID
    */
   async getVideoById(id: string): Promise<VideoMetadata | null> {

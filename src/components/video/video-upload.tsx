@@ -229,32 +229,49 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
       const progressInterval = simulateUploadProgress(fileId, selectedFile.name);
 
       try {
-        // Prepare form data for API
-        const apiFormData = new FormData();
-        apiFormData.append('video', selectedFile);
-        apiFormData.append('title', formData.title);
-        if (formData.description) {
-          apiFormData.append('description', formData.description);
-        }
-        apiFormData.append('category', formData.category);
-        apiFormData.append('tags', formData.tags.join(','));
-        apiFormData.append('isPublic', formData.isPublic.toString());
+        // Step 1: Upload video file directly to Vercel Blob
+        const { upload } = await import('@vercel/blob/client');
         
-        // Add thumbnail if selected
-        if (selectedThumbnail) {
-          apiFormData.append('thumbnail', selectedThumbnail);
-        }
-
-        // Perform the actual upload via API
-        const response = await fetch('/api/videos/upload', {
-          method: 'POST',
-          body: apiFormData,
+        const videoBlob = await upload(selectedFile.name, selectedFile, {
+          access: 'public',
+          handleUploadUrl: '/api/videos/upload',
         });
 
-        const result = await response.json();
+        console.log('Video uploaded to Blob:', videoBlob.url);
 
-        if (!response.ok) {
-          throw new Error(result.error || 'Upload failed');
+        // Step 2: Upload thumbnail if provided
+        let thumbnailUrl: string | undefined;
+        if (selectedThumbnail) {
+          const thumbnailBlob = await upload(selectedThumbnail.name, selectedThumbnail, {
+            access: 'public',
+            handleUploadUrl: '/api/videos/upload',
+          });
+          thumbnailUrl = thumbnailBlob.url;
+          console.log('Thumbnail uploaded to Blob:', thumbnailUrl);
+        }
+
+        // Step 3: Create video record in database
+        const createResponse = await fetch('/api/videos/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: formData.title,
+            description: formData.description,
+            category: formData.category,
+            tags: formData.tags,
+            isPublic: formData.isPublic,
+            videoUrl: videoBlob.url,
+            thumbnailUrl,
+            filename: selectedFile.name,
+          }),
+        });
+
+        const result = await createResponse.json();
+
+        if (!createResponse.ok) {
+          throw new Error(result.error || 'Failed to create video record');
         }
 
         clearInterval(progressInterval);

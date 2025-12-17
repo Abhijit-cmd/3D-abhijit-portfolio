@@ -1,81 +1,61 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { VideoService } from '@/lib/services/video-service';
-import { VideoUploadRequest } from '@/types/video';
-import { StorageError } from '@/lib/services/storage';
+import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 
-export async function POST(request: NextRequest) {
+// Configure route segment
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+/**
+ * This API route handles client-side upload requests to Vercel Blob.
+ * It generates a signed upload URL that the client can use to upload directly to Blob storage.
+ * 
+ * This approach bypasses the 4.5MB body size limit for serverless functions.
+ */
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    console.log('Upload API called');
-    const formData = await request.formData();
-    
-    // Extract video file
-    const videoFile = formData.get('video') as File;
-    console.log('Video file:', videoFile ? videoFile.name : 'none');
-    
-    if (!videoFile) {
-      return NextResponse.json(
-        { error: 'Video file is required' },
-        { status: 400 }
-      );
-    }
+    const body = (await request.json()) as HandleUploadBody;
 
-    // Extract thumbnail file (optional)
-    const thumbnailFile = formData.get('thumbnail') as File | null;
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async (pathname) => {
+        // Validate the upload request
+        console.log('Generating upload token for:', pathname);
+        
+        // You can add custom validation here
+        // For example, check user permissions, file type, etc.
+        
+        return {
+          allowedContentTypes: [
+            'video/mp4',
+            'video/webm',
+            'video/quicktime',
+            'video/x-msvideo',
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+            'image/jpg',
+          ],
+          tokenPayload: JSON.stringify({
+            // Optional: Add custom metadata
+            uploadedAt: new Date().toISOString(),
+          }),
+        };
+      },
+      onUploadCompleted: async ({ blob, tokenPayload }) => {
+        // This runs after the upload is complete
+        console.log('Upload completed:', blob.url);
+        
+        // You can add post-upload logic here
+        // For example, create database record, send notification, etc.
+      },
+    });
 
-    // Extract metadata
-    const title = formData.get('title') as string;
-    const description = formData.get('description') as string;
-    const category = formData.get('category') as string;
-    const tagsString = formData.get('tags') as string;
-    const isPublic = formData.get('isPublic') === 'true';
-
-    // Validate required fields
-    if (!title || !category) {
-      return NextResponse.json(
-        { error: 'Title and category are required' },
-        { status: 400 }
-      );
-    }
-
-    // Parse tags
-    const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()) : [];
-
-    // Create upload request
-    const uploadRequest: VideoUploadRequest = {
-      title,
-      description: description || '',
-      category: category as any,
-      tags,
-      isPublic,
-    };
-
-    // Upload video
-    console.log('Creating video service...');
-    const videoService = new VideoService();
-    console.log('Uploading video...');
-    const videoMetadata = await videoService.uploadVideo(
-      videoFile,
-      uploadRequest,
-      thumbnailFile || undefined
-    );
-
-    console.log('Upload successful:', videoMetadata.id);
-    return NextResponse.json(videoMetadata, { status: 201 });
+    return NextResponse.json(jsonResponse);
   } catch (error) {
-    console.error('Upload error:', error);
-    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
-
-    // Handle storage errors
-    if (error instanceof StorageError) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: error.statusCode }
-      );
-    }
-
-    // Handle other errors
+    console.error('Upload token generation error:', error);
     return NextResponse.json(
-      { error: 'Failed to upload video' },
+      { error: error instanceof Error ? error.message : 'Failed to generate upload token' },
       { status: 500 }
     );
   }
