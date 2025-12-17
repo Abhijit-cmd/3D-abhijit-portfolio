@@ -1,83 +1,75 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { VideoService } from '@/lib/services/video-service';
 import { VideoUploadRequest } from '@/types/video';
+import { StorageError } from '@/lib/services/storage';
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     
-    // Extract file
-    const file = formData.get('file') as File;
-    if (!file) {
+    // Extract video file
+    const videoFile = formData.get('video') as File;
+    if (!videoFile) {
       return NextResponse.json(
-        { error: 'No file provided' },
+        { error: 'Video file is required' },
         { status: 400 }
       );
     }
 
+    // Extract thumbnail file (optional)
+    const thumbnailFile = formData.get('thumbnail') as File | null;
+
     // Extract metadata
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
-    const category = formData.get('category') as VideoUploadRequest['category'];
+    const category = formData.get('category') as string;
     const tagsString = formData.get('tags') as string;
     const isPublic = formData.get('isPublic') === 'true';
 
-    if (!title) {
+    // Validate required fields
+    if (!title || !category) {
       return NextResponse.json(
-        { error: 'Title is required' },
+        { error: 'Title and category are required' },
         { status: 400 }
       );
     }
 
     // Parse tags
-    const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+    const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()) : [];
 
+    // Create upload request
     const uploadRequest: VideoUploadRequest = {
       title,
-      description: description || undefined,
-      category: category || 'gameplay',
+      description: description || '',
+      category: category as any,
       tags,
       isPublic,
     };
 
-    // Initialize video service and upload
+    // Upload video
     const videoService = new VideoService();
-    
-    // Validate file
-    const validation = videoService.validateVideoFile(file);
-    if (!validation.isValid) {
+    const videoMetadata = await videoService.uploadVideo(
+      videoFile,
+      uploadRequest,
+      thumbnailFile || undefined
+    );
+
+    return NextResponse.json(videoMetadata, { status: 201 });
+  } catch (error) {
+    console.error('Upload error:', error);
+
+    // Handle storage errors
+    if (error instanceof StorageError) {
       return NextResponse.json(
-        { error: validation.error },
-        { status: 400 }
+        { error: error.message },
+        { status: error.statusCode }
       );
     }
 
-    // Upload video
-    const uploadedVideo = await videoService.uploadVideo(
-      file,
-      uploadRequest,
-      file.name,
-      file.type
-    );
-
-    return NextResponse.json({
-      success: true,
-      video: uploadedVideo,
-    });
-
-  } catch (error) {
-    console.error('Video upload API error:', error);
-    
+    // Handle other errors
     return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Upload failed',
-        success: false 
-      },
+      { error: 'Failed to upload video' },
       { status: 500 }
     );
   }
 }
-
-// Configure maximum file size for the API route
-export const runtime = 'nodejs';
-export const maxDuration = 60; // 60 seconds timeout for uploads

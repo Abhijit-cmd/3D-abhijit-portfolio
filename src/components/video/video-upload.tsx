@@ -231,7 +231,7 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
       try {
         // Prepare form data for API
         const apiFormData = new FormData();
-        apiFormData.append('file', selectedFile);
+        apiFormData.append('video', selectedFile);
         apiFormData.append('title', formData.title);
         if (formData.description) {
           apiFormData.append('description', formData.description);
@@ -253,7 +253,7 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
 
         const result = await response.json();
 
-        if (!response.ok || !result.success) {
+        if (!response.ok) {
           throw new Error(result.error || 'Upload failed');
         }
 
@@ -263,7 +263,7 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
 
         toast({
           title: "Upload Successful",
-          description: `"${result.video.title}" has been uploaded successfully.`,
+          description: `"${result.title}" has been uploaded successfully.`,
         });
 
         // Reset form
@@ -291,7 +291,7 @@ export function VideoUpload({ onUploadComplete, onUploadStart, className }: Vide
           setUploadProgress(null);
         }, 2000);
 
-        onUploadComplete?.(result.video);
+        onUploadComplete?.(result);
 
       } catch (error) {
         clearInterval(progressInterval);

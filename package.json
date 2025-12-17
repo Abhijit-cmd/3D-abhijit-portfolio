@@ -12,7 +12,8 @@
     "test:ui": "vitest --ui",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:seed": "tsx scripts/seed-videos.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
@@ -32,6 +33,7 @@
     "@splidejs/react-splide": "^0.7.12",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.3",
+    "@vercel/blob": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

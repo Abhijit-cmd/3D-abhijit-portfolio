@@ -1,25 +1,75 @@
 import { VideoMetadata, VideoUploadRequest, VideoUpdateRequest, VideoSearchFilters, PaginatedVideoResponse } from '@/types/video';
 import { VideoRepository } from '@/lib/repositories/video-repository';
+import { StorageService, createStorageService } from './storage';
+import { validateVideoFile, validateThumbnailFile, generateUniqueFilename } from '@/lib/utils/file-validation';
 
 export class VideoService {
   private repository: VideoRepository;
+  private storageService: StorageService;
 
-  constructor() {
+  constructor(storageService?: StorageService) {
     this.repository = new VideoRepository();
+    this.storageService = storageService || createStorageService();
   }
 
   /**
-   * Upload a new video
-   * Note: File upload is not supported on Vercel (read-only filesystem)
-   * This would need to be implemented with Vercel Blob or similar cloud storage
+   * Upload a new video with thumbnail
    */
   async uploadVideo(
-    file: File | Buffer,
+    videoFile: File,
     uploadRequest: VideoUploadRequest,
-    originalName: string,
-    mimeType: string
+    thumbnailFile?: File
   ): Promise<VideoMetadata> {
-    throw new Error('Video upload is not supported in production. Please use cloud storage like Vercel Blob.');
+    // Validate video file
+    const videoValidation = validateVideoFile(videoFile);
+    if (!videoValidation.valid) {
+      throw videoValidation.error;
+    }
+
+    // Validate thumbnail if provided
+    if (thumbnailFile) {
+      const thumbnailValidation = validateThumbnailFile(thumbnailFile);
+      if (!thumbnailValidation.valid) {
+        throw thumbnailValidation.error;
+      }
+    }
+
+    try {
+      // Generate unique filenames
+      const videoFilename = generateUniqueFilename(videoFile.name);
+      const thumbnailFilename = thumbnailFile 
+        ? generateUniqueFilename(thumbnailFile.name)
+        : 'default-thumbnail.jpg';
+
+      // Upload video to storage
+      const videoUrl = await this.storageService.uploadVideo(videoFile, videoFilename);
+
+      // Upload thumbnail to storage
+      let thumbnailUrl: string;
+      if (thumbnailFile) {
+        thumbnailUrl = await this.storageService.uploadThumbnail(thumbnailFile, thumbnailFilename);
+      } else {
+        // Use default thumbnail
+        thumbnailUrl = '/assets/default-video-thumbnail.jpg';
+      }
+
+      // Create video record in database
+      const videoMetadata = await this.repository.create({
+        id: this.generateUniqueId(),
+        ...uploadRequest,
+        filename: videoUrl,
+        originalName: videoFile.name,
+        mimeType: videoFile.type,
+        size: videoFile.size,
+        thumbnail: thumbnailUrl,
+        tags: uploadRequest.tags || [],
+      });
+
+      return videoMetadata;
+    } catch (error) {
+      console.error('Failed to upload video:', error);
+      throw error;
+    }
   }
 
   /**
@@ -47,10 +97,23 @@ export class VideoService {
   }
 
   /**
-   * Delete video from database
+   * Delete video from database and storage
    */
   async deleteVideo(id: string): Promise<boolean> {
     try {
+      // Get video metadata first to get URLs
+      const video = await this.repository.findById(id);
+      if (!video) {
+        return false;
+      }
+
+      // Delete from storage
+      await this.storageService.deleteVideo(video.filename);
+      if (video.thumbnail) {
+        await this.storageService.deleteThumbnail(video.thumbnail);
+      }
+
+      // Delete from database
       return await this.repository.delete(id);
     } catch (error) {
       console.error('Failed to delete video:', error);

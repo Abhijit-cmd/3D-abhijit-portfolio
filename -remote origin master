@@ -1,0 +1,11 @@
+[33mcommit 9bab4ec9f3d4c8d309c1455baa8371480a716364[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: unknown <abhijitdeb063@gmail.com>
+Date:   Tue Dec 16 21:00:06 2025 +0530
+
+    Fix Vercel build: Remove filesystem storage dependencies
+
+M	src/app/api/videos/stream/[id]/route.ts
+M	src/app/api/videos/thumbnail/[id]/route.ts
+M	src/lib/services/video-service.ts
+D	src/lib/storage/file-storage.ts
+D	src/lib/storage/video-database.ts

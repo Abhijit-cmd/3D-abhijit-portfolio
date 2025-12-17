@@ -94,8 +94,9 @@ export function VideoModal({
 
   if (!isOpen) return null;
 
-  const videoUrl = `/api/videos/stream/${video.id}`;
-  const thumbnailUrl = video.thumbnail || `/api/videos/thumbnail/${video.id}`;
+  // Use video URL directly (supports both local paths and Blob URLs)
+  const videoUrl = video.filename;
+  const thumbnailUrl = video.thumbnail || '/assets/default-video-thumbnail.jpg';
 
   return (
     <div
