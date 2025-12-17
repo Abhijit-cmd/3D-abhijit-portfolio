@@ -26,7 +26,7 @@ export function validateVideoFile(file: File): ValidationResult {
   }
 
   // Check MIME type
-  if (!STORAGE_CONFIG.allowedVideoTypes.includes(file.type)) {
+  if (!STORAGE_CONFIG.allowedVideoTypes.includes(file.type as any)) {
     return {
       valid: false,
       error: new StorageError(
@@ -58,7 +58,7 @@ export function validateThumbnailFile(file: File): ValidationResult {
   }
 
   // Check MIME type
-  if (!STORAGE_CONFIG.allowedImageTypes.includes(file.type)) {
+  if (!STORAGE_CONFIG.allowedImageTypes.includes(file.type as any)) {
     return {
       valid: false,
       error: new StorageError(
