@@ -23,7 +23,7 @@ const config = {
   ],
   author: "Abhijit Deb",
   email: "Abhijitdeb063@gmail.com",
-  site: "https://nareshkhatri.site",
+  site: "https://3-d-abhijit-portfolio-zwag.vercel.app",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
