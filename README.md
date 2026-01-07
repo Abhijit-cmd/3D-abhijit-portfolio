@@ -2,7 +2,7 @@
 
 Welcome to the repository for my personal portfolio website! This is where I showcase my skills, projects, and a bit of my personality through jaw-dropping 3D animations, slick interactions, and fluid motion. If you're into creative web design, you're in the right place.
 
-**Live Site:** [View Portfolio](https://3-d-abhijit-portfolio-zwag.vercel.app)
+**Live Site:** [View Portfolio](https://abhijitdeb.vercel.app/)
 
 ![Portfolio Preview](public/assets/nav-link-previews/landing.png)
 
